@@ -1,12 +1,14 @@
 import { useState } from "react";
-import ResumeAnalyzer from "../components/ResumeAnalyzer";
-import Profile from "../components/Profile";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
+import Profile from "../components/Profile";
+import ResumeAnalyzer from "../components/ResumeAnalyzer";
+import CompanyDetails from "../components/CompanyDetails";
 
 export default function Dashboard() {
-  const [activeSection, setActiveSection] = useState("hero"); // default to Hero
+  const [activeSection, setActiveSection] = useState("hero"); // default
+  const [selectedCompany, setSelectedCompany] = useState(null); // store selected company
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-white via-purple-50 to-blue-50">
@@ -18,7 +20,10 @@ export default function Dashboard() {
       <div className="flex-1 flex flex-col overflow-hidden">
 
         {/* 🔹 NAVBAR */}
-        <Navbar />
+        <Navbar
+          setActiveSection={setActiveSection}
+          setSelectedCompany={setSelectedCompany} // pass setter
+        />
 
         {/* 🔹 MAIN CONTENT */}
         <div className="flex-1 overflow-auto p-6">
@@ -27,8 +32,11 @@ export default function Dashboard() {
           {activeSection === "hero" && (
             <Hero 
               activeSection={activeSection} 
-              setActiveSection={setActiveSection} // ✅ pass setter to Hero
+              setActiveSection={setActiveSection} 
             />
+          )}
+          {activeSection === "company" && selectedCompany && (
+            <CompanyDetails selectedCompany={selectedCompany} />
           )}
         </div>
 
