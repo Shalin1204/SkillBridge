@@ -1,10 +1,10 @@
-# Career Pivot Module
+# Career Pivot & Job Matching Module
 
 ## 📌 Overview
 
-The Career Pivot module is a core component of SkillBridge that enables users to evaluate their readiness for a target role and receive actionable guidance for transitioning into that role.
+The Career Pivot & Job Matching module is a core component of SkillBridge that enables users to analyze their current skills, evaluate readiness for a target role, and match their profile against real job opportunities.
 
-It analyzes a user's current skill set, compares it against industry-relevant requirements, identifies skill gaps, and generates a structured learning roadmap.
+The system not only identifies skill gaps but also provides **job recommendations and resume-job matching with actionable learning paths**, making it a complete career guidance solution.
 
 ---
 
@@ -12,13 +12,13 @@ It analyzes a user's current skill set, compares it against industry-relevant re
 
 ### 1. Skill Gap Detection
 
-Identifies missing skills required for a selected target role by comparing user skills with predefined role requirements.
+Identifies missing skills required for a selected role by comparing user skills with a structured, industry-relevant dataset.
 
 ---
 
 ### 2. Weighted Readiness Score
 
-Unlike basic systems, this module uses **weighted skill analysis**, where each skill contributes differently based on its importance.
+The system uses a **weighted skill evaluation approach**, where each skill contributes differently based on importance.
 
 #### 📊 Formula:
 
@@ -26,69 +26,116 @@ Unlike basic systems, this module uses **weighted skill analysis**, where each s
 Readiness (%) = (Matched Skill Weight / Total Skill Weight) × 100
 ```
 
-This ensures critical skills (e.g., React, JavaScript) have a higher impact than basic skills (e.g., HTML, CSS).
+This ensures critical skills (e.g., React, JavaScript) have a higher impact than foundational skills.
 
 ---
 
 ### 3. Difficulty Classification
 
-Based on the readiness score, the system categorizes the transition difficulty:
+Based on readiness score:
 
-- **Easy** → Readiness ≥ 60%
-- **Medium** → 30% ≤ Readiness < 60%
-- **Hard** → Readiness < 30%
+- **Easy** → ≥ 60%
+- **Medium** → 30% – 59%
+- **Hard** → < 30%
 
 ---
 
 ### 4. Job Match Score
 
-Provides a job compatibility score (similar to industry platforms like LinkedIn), helping users understand how closely they match a role.
+Provides a match percentage indicating how closely a user’s profile aligns with a role or job.
 
 ---
 
 ### 5. Matched & Missing Skills Insight
 
-The module returns:
+Returns:
 
-- ✅ Matched skills (user already has)
-- ❌ Missing skills (needs improvement)
+- ✅ Matched skills
+- ❌ Missing skills
 
-This provides a clear comparison of the user's profile vs industry expectations.
+This gives a clear comparison between user capabilities and job/role requirements.
 
 ---
 
 ### 6. Personalized Learning Roadmap
 
-Generates a structured roadmap for missing skills with:
+Generates a structured roadmap for missing skills including:
 
-- 📚 Learning resource suggestions
-- 🔴 Priority level (High / Medium)
-- 📈 Skill level (Beginner / Intermediate / Advanced)
+- 📚 Resource suggestions
+- 🔴 Priority (High / Medium)
+- 📈 Level (Beginner / Intermediate / Advanced)
 - ⏱ Estimated learning time
+
+---
+
+### 7. Job Recommendation System
+
+Suggests jobs based on user skills and target role.
+
+Each job includes:
+
+- Title
+- Company
+- Location
+- Salary
+- Match score (%)
+
+Jobs are ranked based on skill compatibility.
+
+---
+
+### 8. Resume-to-Job Matching (“Match My Resume”)
+
+Allows users to match their profile with a specific job.
+
+#### Output Includes:
+
+- Match score (%)
+- Matched skills
+- Missing skills
+- Personalized message
+- Learning roadmap for improvement
 
 ---
 
 ## 🧠 Architecture
 
 ```
-Frontend → Backend API → Career Pivot Service → Response → Frontend UI
+Frontend → Backend API → Services Layer → Response → Frontend UI
 ```
 
-### Core Components:
+### Services Layer Components:
 
 - `skillGapAnalyzer.js` → Identifies missing skills
 - `readinessCalculator.js` → Computes weighted readiness
-- `pivotService.js` → Combines logic and generates final output
-- `roadmapGenerator.js` → Creates learning roadmap
+- `pivotService.js` → Main career analysis logic
+- `roadmapGenerator.js` → Generates learning roadmap
+- `jobRecommender.js` → Suggests relevant jobs
+- `resumeMatcher.js` → Matches resume with specific jobs
 
 ---
 
-## 📥 Input Format
+## 📥 Input Formats
+
+### Career Analysis
 
 ```json
 {
   "userSkills": ["HTML", "CSS"],
   "targetRole": "frontend developer"
+}
+```
+
+### Resume-Job Matching
+
+```json
+{
+  "userSkills": ["HTML", "CSS"],
+  "job": {
+    "title": "React Developer",
+    "company": "InnovateX",
+    "requiredSkills": ["React", "JavaScript", "Git"]
+  }
 }
 ```
 
@@ -99,7 +146,7 @@ Frontend → Backend API → Career Pivot Service → Response → Frontend UI
 ```json
 {
   "targetRole": "frontend developer",
-  "missingSkills": ["JavaScript", "React", "Git"],
+  "missingSkills": ["JavaScript", "React"],
   "matchedSkillsList": ["HTML", "CSS"],
   "readiness": "16.67",
   "difficulty": "Hard",
@@ -112,6 +159,13 @@ Frontend → Backend API → Career Pivot Service → Response → Frontend UI
       "level": "Intermediate",
       "estimatedTime": "4-6 weeks"
     }
+  ],
+  "jobs": [
+    {
+      "title": "Frontend Developer Intern",
+      "company": "TechCorp",
+      "matchScore": "66.67"
+    }
   ]
 }
 ```
@@ -121,26 +175,29 @@ Frontend → Backend API → Career Pivot Service → Response → Frontend UI
 ## ⚙️ Technologies Used
 
 - JavaScript (Node.js)
-- Modular architecture (service-based design)
-- JSON-based role-skill dataset
+- Modular service-based architecture
+- JSON-based datasets for roles and jobs
 
 ---
 
 ## 🎯 Impact
 
-The Career Pivot module transforms career guidance from static advice into a **data-driven, actionable system** by:
+This module transforms career guidance into a **data-driven and actionable system** by:
 
-- Providing realistic readiness evaluation
-- Highlighting critical skill gaps
-- Delivering structured and prioritized learning paths
+- Evaluating user readiness using weighted analysis
+- Identifying critical skill gaps
+- Recommending relevant job opportunities
+- Providing structured and prioritized learning paths
+- Enabling resume-to-job matching for targeted applications
 
 ---
 
 ## 🏆 Highlights
 
-- Weighted skill-based evaluation (industry-like approach)
-- Personalized and actionable recommendations
-- Scalable design for multiple roles and domains
-- Seamless integration with backend APIs
+- Weighted skill-based evaluation
+- End-to-end career analysis pipeline
+- Job recommendation and matching system
+- Actionable learning roadmap
+- Scalable and modular architecture
 
 ---
