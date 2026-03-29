@@ -1,12 +1,9 @@
 function findSkillGap(userSkills, targetSkills) {
-  // Normalize to avoid case issues
-  const normalizedUserSkills = userSkills.map((skill) => skill.toLowerCase());
+  const normalizedUserSkills = userSkills.map((s) => s.toLowerCase());
 
-  const missingSkills = targetSkills.filter(
-    (skill) => !normalizedUserSkills.includes(skill.toLowerCase()),
+  return targetSkills.filter(
+    (skill) => !normalizedUserSkills.includes(skill.name.toLowerCase()),
   );
-
-  return missingSkills;
 }
 
 module.exports = { findSkillGap };

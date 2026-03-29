@@ -1,0 +1,38 @@
+{
+  "frontend developer": [
+    {
+      "title": "Frontend Developer Intern",
+      "company": "TechCorp",
+      "location": "Remote",
+      "salary": "3-5 LPA",
+      "requiredSkills": ["HTML", "CSS", "JavaScript"]
+    },
+    {
+      "title": "React Developer",
+      "company": "InnovateX",
+      "location": "Bangalore",
+      "salary": "6-10 LPA",
+      "requiredSkills": ["React", "JavaScript", "Git"]
+    }
+  ],
+
+  "backend developer": [
+    {
+      "title": "Backend Developer",
+      "company": "CodeBase",
+      "location": "Hyderabad",
+      "salary": "5-9 LPA",
+      "requiredSkills": ["Node.js", "Express", "MongoDB"]
+    }
+  ],
+
+  "data analyst": [
+    {
+      "title": "Junior Data Analyst",
+      "company": "DataWorks",
+      "location": "Remote",
+      "salary": "4-7 LPA",
+      "requiredSkills": ["Python", "SQL", "Excel"]
+    }
+  ]
+}

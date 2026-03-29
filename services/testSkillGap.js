@@ -1,11 +1,16 @@
-const { findSkillGap } = require("./career-pivot/skillGapAnalyzer");
-const roles = require("./data/roleSkills.json");
+const jobsData = require("./data/jobs.json");
+const { matchResumeToJob } = require("./job-recommendation/resumeMatcher");
+const { generateRoadmap } = require("./learning-path/roadmapGenerator");
 
 const userSkills = ["HTML", "CSS"];
-const targetRole = "frontend developer";
+const job = jobsData["frontend developer"][1]; // React job
 
-const targetSkills = roles[targetRole];
+const matchResult = matchResumeToJob(userSkills, job);
 
-const result = findSkillGap(userSkills, targetSkills);
+const roadmap = generateRoadmap(matchResult.missingSkills);
 
-console.log("Missing Skills:", result);
+console.log("\n===== Resume Match Result =====");
+console.log(matchResult);
+
+console.log("\n===== Learning Plan =====");
+console.log(roadmap);

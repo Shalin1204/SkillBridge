@@ -1,41 +1,38 @@
+import { useState } from "react";
+import ResumeAnalyzer from "../components/ResumeAnalyzer";
+import Profile from "../components/Profile";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import Hero from "../components/Hero";
+
 export default function Dashboard() {
+  const [activeSection, setActiveSection] = useState("hero"); // default to Hero
+
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
+    <div className="flex h-screen bg-gradient-to-br from-white via-purple-50 to-blue-50">
 
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+      {/* 🔹 SIDEBAR */}
+      <Sidebar active={activeSection} setActive={setActiveSection} />
 
-      {/* Profile */}
-      <div className="bg-gray-800 p-6 rounded-xl mb-6">
-        <h2 className="text-xl font-semibold">Welcome, Shreyash 👋</h2>
-        <p className="text-gray-400">Target Role: Frontend Developer</p>
-      </div>
+      {/* 🔹 MAIN AREA */}
+      <div className="flex-1 flex flex-col overflow-hidden">
 
-      {/* Skill Progress */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* 🔹 NAVBAR */}
+        <Navbar />
 
-        <div className="bg-gray-800 p-6 rounded-xl">
-          <h3 className="mb-4">HTML</h3>
-          <div className="w-full bg-gray-700 rounded-full h-3">
-            <div className="bg-teal-500 h-3 rounded-full w-[80%]"></div>
-          </div>
-        </div>
-
-        <div className="bg-gray-800 p-6 rounded-xl">
-          <h3 className="mb-4">CSS</h3>
-          <div className="w-full bg-gray-700 rounded-full h-3">
-            <div className="bg-teal-500 h-3 rounded-full w-[60%]"></div>
-          </div>
-        </div>
-
-        <div className="bg-gray-800 p-6 rounded-xl">
-          <h3 className="mb-4">JavaScript</h3>
-          <div className="w-full bg-gray-700 rounded-full h-3">
-            <div className="bg-teal-500 h-3 rounded-full w-[40%]"></div>
-          </div>
+        {/* 🔹 MAIN CONTENT */}
+        <div className="flex-1 overflow-auto p-6">
+          {activeSection === "profile" && <Profile />}
+          {activeSection === "resume" && <ResumeAnalyzer />}
+          {activeSection === "hero" && (
+            <Hero 
+              activeSection={activeSection} 
+              setActiveSection={setActiveSection} // ✅ pass setter to Hero
+            />
+          )}
         </div>
 
       </div>
-
     </div>
   );
 }
