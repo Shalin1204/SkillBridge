@@ -1,13 +1,16 @@
-const { analyzeCareerPivot } = require("./career-pivot/pivotService");
+const jobsData = require("./data/jobs.json");
+const { matchResumeToJob } = require("./job-recommendation/resumeMatcher");
 const { generateRoadmap } = require("./learning-path/roadmapGenerator");
 
 const userSkills = ["HTML", "CSS"];
-const targetRole = "frontend developer";
+const job = jobsData["frontend developer"][1]; // React job
 
-const result = analyzeCareerPivot(userSkills, targetRole);
+const matchResult = matchResumeToJob(userSkills, job);
 
-console.log("Career Pivot Result:", result);
+const roadmap = generateRoadmap(matchResult.missingSkills);
 
-const roadmap = generateRoadmap(result.missingSkills);
+console.log("\n===== Resume Match Result =====");
+console.log(matchResult);
 
-console.log("Learning Roadmap:", roadmap);
+console.log("\n===== Learning Plan =====");
+console.log(roadmap);
