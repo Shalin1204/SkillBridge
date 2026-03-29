@@ -1,13 +1,18 @@
 function calculateReadiness(userSkills, targetSkills) {
-  const normalizedUserSkills = userSkills.map((skill) => skill.toLowerCase());
+  const normalizedUserSkills = userSkills.map((s) => s.toLowerCase());
 
-  const matchedSkills = targetSkills.filter((skill) =>
-    normalizedUserSkills.includes(skill.toLowerCase()),
-  );
+  let matchedWeight = 0;
+  let totalWeight = 0;
 
-  const score = (matchedSkills.length / targetSkills.length) * 100;
+  targetSkills.forEach((skill) => {
+    totalWeight += skill.weight;
 
-  return score;
+    if (normalizedUserSkills.includes(skill.name.toLowerCase())) {
+      matchedWeight += skill.weight;
+    }
+  });
+
+  return (matchedWeight / totalWeight) * 100;
 }
 
 module.exports = { calculateReadiness };

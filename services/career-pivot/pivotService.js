@@ -14,16 +14,30 @@ function analyzeCareerPivot(userSkills, targetRole) {
   const missingSkills = findSkillGap(userSkills, targetSkills);
   const readiness = calculateReadiness(userSkills, targetSkills);
 
-  let difficulty = "Easy";
+  const matchedSkillsList = targetSkills
+    .filter((skill) =>
+      userSkills.map((s) => s.toLowerCase()).includes(skill.name.toLowerCase()),
+    )
+    .map((skill) => skill.name);
 
-  if (readiness < 40) difficulty = "Hard";
-  else if (readiness < 70) difficulty = "Medium";
+  let message = "";
+
+  if (readiness < 30) {
+    message = "Significant upskilling required to transition into this role.";
+  } else if (readiness < 60) {
+    message = "You are on the right track but need to improve key skills.";
+  } else {
+    message = "You are well prepared for this role.";
+  }
 
   return {
     targetRole,
-    missingSkills,
+    missingSkills: missingSkills.map((s) => s.name),
+    matchedSkillsList,
     readiness: readiness.toFixed(2),
-    difficulty,
+    message,
+    totalSkills: targetSkills.length,
+    matchedSkills: matchedSkillsList.length,
   };
 }
 
